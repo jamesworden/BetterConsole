@@ -1,0 +1,6 @@
+name: SpringbootPaperMC
+version: ${project.version}
+main: com.jamesworden.springbootpapermc.Driver
+api-version: 1.16
+authors: [James Worden]
+description: Boilerplate Plugin for using the SpringBoot Framework
