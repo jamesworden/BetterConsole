@@ -1,4 +1,6 @@
-# SpringBoot-PaperMC
-Boilerplate code for a PaperMC Plugin using the SpringBoot framework in Java
+# BetterConsole
 
-Contains a LOMBOK dependency by default; can be manually removed.
+Developer tool for creating MC Plugins.
+Created using the SpringBoot-PaperMC template.
+
+Work in progress.
