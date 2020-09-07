@@ -1,0 +1,12 @@
+  #################
+  # BetterConsole #
+  #################
+
+# Server port for BetterConsole to run on
+port: 8080
+
+# Theme for user interface
+# Options: 'light', 'dark', 'dracula'
+theme: light
+
+# Created by James Worden
