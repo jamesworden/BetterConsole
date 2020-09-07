@@ -3,6 +3,9 @@ package com.jamesworden.springbootpapermc.minecraft;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
+/**
+ * Holds in-game chat functionality
+ */
 public class GameCommandMessage {
 
 	/**
