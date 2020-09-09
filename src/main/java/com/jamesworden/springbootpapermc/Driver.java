@@ -9,8 +9,6 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import java.awt.*;
-import java.util.Collections;
 import java.util.Objects;
 
 /**
@@ -37,6 +35,7 @@ public final class Driver extends JavaPlugin {
 		// Configure server port and properties
 		SpringApplication app = new SpringApplicationBuilder(Application.class)
 			.properties("server.port=" + configuration.getPort())
+			.web(WebApplicationType.SERVLET)
 			.bannerMode(Banner.Mode.OFF)
 			.logStartupInfo(false)
 			.headless(false)
