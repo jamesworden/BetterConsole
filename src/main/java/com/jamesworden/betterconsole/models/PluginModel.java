@@ -1,25 +1,27 @@
 package com.jamesworden.betterconsole.models;
 
-public class PluginModel {
+import com.google.auto.value.AutoValue;
 
-	private String name;
-	private boolean enabled;
+@AutoValue
+public abstract class PluginModel {
 
-	public PluginModel(String name, boolean enabled) {
-		this.name = name;
-		this.enabled = enabled;
+	public abstract String getName();
+	public abstract boolean isIgnored();
+	public abstract boolean isEnabled();
+
+	public static Builder builder() {
+		return new AutoValue_PluginModel.Builder();
 	}
 
-	public String getName() {
-		return name;
-	}
 
-	public boolean isEnabled() {
-		return enabled;
-	}
+	@AutoValue.Builder
+	public abstract static class Builder {
+		public abstract Builder setName(String newName);
 
-	public void setEnabled() {
-		enabled = false;
-	}
+		public abstract Builder setIgnored(boolean newIgnored);
 
+		public abstract Builder setEnabled(boolean newEnabled);
+
+		public abstract PluginModel build();
+	}
 }
