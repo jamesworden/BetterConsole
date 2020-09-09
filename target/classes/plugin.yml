@@ -1,0 +1,9 @@
+name: BetterConsole
+version: 1.0-SNAPSHOT
+main: com.jamesworden.betterconsole.BetterConsole
+api-version: 1.16
+authors: [James Worden]
+description: Better console for developing plugins in minecraft
+commands:
+  betterconsole:
+    description: Opens BetterConsole from the original console
