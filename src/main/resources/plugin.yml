@@ -1,6 +1,6 @@
 name: BetterConsole
 version: ${project.version}
-main: com.jamesworden.springbootpapermc.Driver
+main: com.jamesworden.betterconsole.BetterConsole
 api-version: 1.16
 authors: [James Worden]
 description: Better console for developing plugins in minecraft

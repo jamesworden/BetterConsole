@@ -1,4 +1,4 @@
-package com.jamesworden.springbootpapermc.util;
+package com.jamesworden.betterconsole.util;
 
 import org.bukkit.Bukkit;
 

@@ -1,4 +1,4 @@
-package com.jamesworden.springbootpapermc.minecraft;
+package com.jamesworden.betterconsole.minecraft;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;

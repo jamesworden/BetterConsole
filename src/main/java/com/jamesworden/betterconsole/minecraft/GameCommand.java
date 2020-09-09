@@ -1,6 +1,6 @@
-package com.jamesworden.springbootpapermc.minecraft;
+package com.jamesworden.betterconsole.minecraft;
 
-import com.jamesworden.springbootpapermc.util.DesktopApi;
+import com.jamesworden.betterconsole.util.DesktopApi;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

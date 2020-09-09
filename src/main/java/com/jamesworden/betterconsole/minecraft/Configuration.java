@@ -1,13 +1,14 @@
-package com.jamesworden.springbootpapermc.minecraft;
+package com.jamesworden.betterconsole.minecraft;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.bukkit.configuration.file.FileConfiguration;
 
 /**
  * Values loaded from BetterConsole's config.yml
  */
 public class Configuration {
+
+	private String theme;
+	private int port;
 
 	// Singleton pattern
 	private static Configuration instance = null;
@@ -27,13 +28,17 @@ public class Configuration {
 	 * @param fileConfiguration Configuration taken from the plugin's config.yml file
 	 */
 	public void init(FileConfiguration fileConfiguration) {
-		this.fileConfiguration = fileConfiguration;
-		this.theme = fileConfiguration.getString("theme");
-		this.port = fileConfiguration.getInt("port");
+		theme = fileConfiguration.getString("theme");
+		port = fileConfiguration.getInt("port");
 	}
 
-	@Getter private FileConfiguration fileConfiguration;
-	@Getter @Setter private String theme;
-	@Getter private int port;
+	public int getPort() {
+		return port;
+	}
+
+	public String getTheme() {
+		return theme;
+	}
+
 
 }
