@@ -3,19 +3,19 @@ package com.jamesworden.betterconsole.service;
 import com.google.gson.Gson;
 import spark.Request;
 
-import java.util.List;
+import java.util.HashMap;
 
 /**
- * Middleman service to manipulate data from BetterConsole to the MC server
+ * Retrieves data from minecraft server to BetterConsole server
  *
  * @param <T> Model of data
  */
 public interface Service<T> {
 
-	List<T> findAll(Request req);
+	HashMap<String, T> findAll();
 
-	T findById(Request req);
+	HashMap<String, T> findById(Request req);
 
-	T save(Request req, Gson gson);
+	HashMap<String, T> save(Request req, Gson gson);
 
 }

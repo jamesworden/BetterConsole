@@ -8,11 +8,9 @@ import com.jamesworden.betterconsole.service.PlayerService;
 import com.jamesworden.betterconsole.service.PluginService;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.logging.Logger;
 
 import static spark.Spark.*;
@@ -66,13 +64,8 @@ public class BetterConsoleServer {
 	 */
 	private static void configureRoutes() {
 		routes.add(new Route("/", new HomeService()));
-
-		Plugin[] plugins = Bukkit.getPluginManager().getPlugins();
-		List<String> ignoredPlugins = Bukkit.getHelpMap().getIgnoredPlugins();
-		routes.add(new Route("/plugins", new PluginService(plugins, ignoredPlugins)));
-
-		Collection<? extends Player> players = Bukkit.getOnlinePlayers();
-		routes.add(new Route("/players", new PlayerService(players)));
+		routes.add(new Route("/plugins", new PluginService()));
+		routes.add(new Route("/players", new PlayerService()));
 
 		Gson gson = new Gson();
 		for (Route route : routes) {

@@ -2,12 +2,22 @@ package com.jamesworden.betterconsole.routes;
 
 import com.google.gson.Gson;
 import com.jamesworden.betterconsole.service.Service;
+import spark.ModelAndView;
+import spark.template.velocity.VelocityTemplateEngine;
+
+import java.util.Map;
 
 import static spark.Spark.*;
 
+/**
+ * Generic HTTP Request Route. Handles GET and POST methods only.
+ */
 public class Route {
 
+	/** HTTP path */
 	private String path;
+
+	/** Corresponding service to fetch server data */
 	private Service service;
 
 	public Route(String path, Service service) {
@@ -15,14 +25,34 @@ public class Route {
 		this.service = service;
 	}
 
+	/**
+	 * Configures the routes for the BetterConsole web server
+	 */
 	public void Configure(Gson gson) {
 		path(path, () -> {
-			get("", (req, res) -> service.findAll(req), gson::toJson);
-			get("/:id",(req, res) -> service.findById(req), gson::toJson);
-			post("",(req, res) -> service.save(req, gson), gson::toJson);
-			// put("",(req, res) -> service.update(req, gson), gson::toJson);
-			// delete("",(req, res) -> service.delete(req), gson::toJson);
+			get("", (req, res) -> {
+				Map<String, Object> model = service.findAll();
+				return new VelocityTemplateEngine().render(
+					new ModelAndView(model,"view-name")
+				);
+			});
+
+			get("/:id", (req, res) -> {
+				Map<String, Object> model = service.findById(req);
+				return new VelocityTemplateEngine().render(
+						new ModelAndView(model,"view-name")
+				);
+			});
+
+			post("", (req, res) -> {
+				Map<String, Object> model = service.save(req, gson);
+				return new VelocityTemplateEngine().render(
+						new ModelAndView(model,"view-name")
+				);
+			});
+
 		});
+
 	}
 
 }

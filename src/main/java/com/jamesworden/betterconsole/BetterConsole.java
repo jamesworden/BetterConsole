@@ -2,13 +2,10 @@ package com.jamesworden.betterconsole;
 
 import com.jamesworden.betterconsole.minecraft.Configuration;
 import com.jamesworden.betterconsole.minecraft.GameCommand;
-import com.jamesworden.betterconsole.routes.Route;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
 import java.util.Objects;
-import java.util.logging.Logger;
 
 /**
  * Main plugin class for BetterConsole
@@ -30,6 +27,12 @@ public final class BetterConsole extends JavaPlugin {
 
 		// Start the server
 		BetterConsoleServer.startServer();
+
+		// TODO - Set up model and view system with each service / route
+		// TODO - Do simple html rendering, nothing complex, polish the front end after everything
+		// TODO - Delete the home service route, just make a basic get request
+		// TODO - Make a server stats route? TPS, CPU used? if possible.
+
 	}
 
 	@Override
