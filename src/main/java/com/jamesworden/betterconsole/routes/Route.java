@@ -5,8 +5,6 @@ import com.jamesworden.betterconsole.service.Service;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 
-import java.util.Map;
-
 import static spark.Spark.*;
 
 /**
@@ -29,27 +27,23 @@ public class Route {
 	 * Configures the routes for the BetterConsole web server
 	 */
 	public void Configure(Gson gson) {
+
+		// Basic example path: '/plugins'
 		path(path, () -> {
-			get("", (req, res) -> {
-				Map<String, Object> model = service.findAll();
-				return new VelocityTemplateEngine().render(
-					new ModelAndView(model,"view-name")
-				);
-			});
+			get("", (req, res) -> new VelocityTemplateEngine().render(
+					// Path: 'plugins'
+					new ModelAndView(service.findAll(),path.substring(1) + "")
+			));
 
-			get("/:id", (req, res) -> {
-				Map<String, Object> model = service.findById(req);
-				return new VelocityTemplateEngine().render(
-						new ModelAndView(model,"view-name")
-				);
-			});
+			get("/:id", (req, res) -> new VelocityTemplateEngine().render(
+					// Path: 'plugin'
+					new ModelAndView(service.findById(req), path.substring(1, path.length()-1))
+			));
 
-			post("", (req, res) -> {
-				Map<String, Object> model = service.save(req, gson);
-				return new VelocityTemplateEngine().render(
-						new ModelAndView(model,"view-name")
-				);
-			});
+			post("", (req, res) -> new VelocityTemplateEngine().render(
+					// Path: 'plugins-post'
+					new ModelAndView(service.save(req, gson),path.substring(1) + "-post")
+			));
 
 		});
 

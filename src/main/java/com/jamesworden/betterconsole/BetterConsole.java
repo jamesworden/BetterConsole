@@ -28,6 +28,10 @@ public final class BetterConsole extends JavaPlugin {
 		// Start the server
 		BetterConsoleServer.startServer();
 
+		// TODO - remove routes arraylist from betterconsoleserver
+		// TODO - Just declare the routes from the constructor - new route(...)
+		// TODO - Change services so all methods return lists
+		// TODO - Change routes so all of them handle model views properly
 		// TODO - Set up model and view system with each service / route
 		// TODO - Do simple html rendering, nothing complex, polish the front end after everything
 		// TODO - Delete the home service route, just make a basic get request

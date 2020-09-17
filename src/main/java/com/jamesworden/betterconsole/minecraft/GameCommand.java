@@ -18,7 +18,9 @@ public class GameCommand implements CommandExecutor {
 
 		// Ensure command sender is console
 		if (sender instanceof Player) {
-			sender.sendMessage(ChatColor.RED + " Players may not use this command!");
+			int port = Configuration.getInstance().getPort();
+			sender.sendMessage(ChatColor.YELLOW + " BetterConsole enabled on port " + port +" !");
+			
 			return false;
 		}
 

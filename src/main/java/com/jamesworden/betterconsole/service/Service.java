@@ -3,7 +3,7 @@ package com.jamesworden.betterconsole.service;
 import com.google.gson.Gson;
 import spark.Request;
 
-import java.util.HashMap;
+import java.util.List;
 
 /**
  * Retrieves data from minecraft server to BetterConsole server
@@ -12,10 +12,10 @@ import java.util.HashMap;
  */
 public interface Service<T> {
 
-	HashMap<String, T> findAll();
+	List<T> findAll();
 
-	HashMap<String, T> findById(Request req);
+	T findById(Request req);
 
-	HashMap<String, T> save(Request req, Gson gson);
+	List<T> save(Request req, Gson gson);
 
 }

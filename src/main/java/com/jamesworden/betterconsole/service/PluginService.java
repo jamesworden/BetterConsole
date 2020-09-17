@@ -6,9 +6,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import spark.Request;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class PluginService implements Service<PluginModel> {
 
@@ -18,7 +17,7 @@ public class PluginService implements Service<PluginModel> {
 	 * @return all active and ignored plugin models
 	 */
 	@Override
-	public HashMap<String, PluginModel> findAll() {
+	public List<PluginModel> findAll() {
 		return getCurrentPluginModels();
 	}
 
@@ -29,32 +28,21 @@ public class PluginService implements Service<PluginModel> {
 	 * @return respective plugin model
 	 */
 	@Override
-	public HashMap<String, PluginModel> findById(Request req){
-		HashMap<String, PluginModel> pluginModels = getCurrentPluginModels();
+	public PluginModel findById(Request req){
 
-		Set<String> keys = pluginModels.keySet();
-		String id = req.body();
-
-		for (String key : keys) {
-			if (id.equalsIgnoreCase(key)) {
-				HashMap<String, PluginModel> model = new HashMap<>();
-				model.put(key,pluginModels.get(key));
+		for (PluginModel model : getCurrentPluginModels()) {
+			if (model.getName().equalsIgnoreCase(req.body())) {
 				return model;
 			}
 		}
-
 		return null;
 	}
 
 	/**
 	 * TODO - Change route to default plugin page
-	 *
-	 * @param req
-	 * @param gson
-	 * @return
 	 */
 	@Override
-	public HashMap<String, PluginModel> save(Request req, Gson gson) {
+	public List<PluginModel> save(Request req, Gson gson) {
 		return null;
 	}
 
@@ -63,20 +51,18 @@ public class PluginService implements Service<PluginModel> {
 	 *
 	 * @return Hash map of plugin names and models, respectively
 	 */
-	private HashMap<String, PluginModel> getCurrentPluginModels() {
-		HashMap<String, PluginModel> pluginModels = new HashMap<>();
+	private List<PluginModel> getCurrentPluginModels() {
+		List<PluginModel> pluginModels = new ArrayList<>();
 
 		Plugin[] plugins = Bukkit.getPluginManager().getPlugins();
 		List<String> ignoredPluginNames = Bukkit.getHelpMap().getIgnoredPlugins();
 
 		for (Plugin plugin : plugins) {
-			PluginModel model = getPluginModel(plugin);
-			pluginModels.put("plugin", model);
+			pluginModels.add(getPluginModel(plugin));
 		}
 
 		for (String ignoredPluginName : ignoredPluginNames) {
-			PluginModel model = getIgnoredPluginModel(ignoredPluginName);
-			pluginModels.put("ignored-plugin", model);
+			pluginModels.add(getIgnoredPluginModel(ignoredPluginName));
 		}
 
 		return pluginModels;

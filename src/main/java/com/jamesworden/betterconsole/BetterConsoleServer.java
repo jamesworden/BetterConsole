@@ -3,14 +3,11 @@ package com.jamesworden.betterconsole;
 import com.google.gson.Gson;
 import com.jamesworden.betterconsole.minecraft.Configuration;
 import com.jamesworden.betterconsole.routes.Route;
-import com.jamesworden.betterconsole.service.HomeService;
 import com.jamesworden.betterconsole.service.PlayerService;
 import com.jamesworden.betterconsole.service.PluginService;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.logging.Logger;
 
 import static spark.Spark.*;
@@ -63,7 +60,6 @@ public class BetterConsoleServer {
 	 * Configuring the BetterConsole server routes
 	 */
 	private static void configureRoutes() {
-		routes.add(new Route("/", new HomeService()));
 		routes.add(new Route("/plugins", new PluginService()));
 		routes.add(new Route("/players", new PlayerService()));
 
