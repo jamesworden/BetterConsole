@@ -1,8 +1,6 @@
 package com.jamesworden.betterconsole.service;
 
 import com.google.gson.Gson;
-import spark.Request;
-
 import java.util.List;
 
 /**
@@ -14,8 +12,8 @@ public interface Service<T> {
 
 	List<T> findAll();
 
-	T findById(Request req);
+	T findById(String id);
 
-	List<T> save(Request req, Gson gson);
+	List<T> save(String request, Gson gson);
 
 }

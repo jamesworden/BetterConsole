@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.jamesworden.betterconsole.models.PlayerModel;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import spark.Request;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +21,10 @@ public class PlayerService implements Service<PlayerModel>{
 	}
 
 	@Override
-	public PlayerModel findById(Request req) {
+	public PlayerModel findById(String id) {
 
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			if (player.getName().equalsIgnoreCase(req.body())) {
+			if (player.getName().equalsIgnoreCase(id)) {
 				return getPlayerModel(player);
 			}
 		}
@@ -33,7 +32,7 @@ public class PlayerService implements Service<PlayerModel>{
 	}
 
 	@Override
-	public List save(Request req, Gson gson) {
+	public List save(String request, Gson gson) {
 		return null;
 	}
 

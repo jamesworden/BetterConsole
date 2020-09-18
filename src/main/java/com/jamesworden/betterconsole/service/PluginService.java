@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.jamesworden.betterconsole.models.PluginModel;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
-import spark.Request;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +27,10 @@ public class PluginService implements Service<PluginModel> {
 	 * @return respective plugin model
 	 */
 	@Override
-	public PluginModel findById(Request req){
+	public PluginModel findById(String id){
 
 		for (PluginModel model : getCurrentPluginModels()) {
-			if (model.getName().equalsIgnoreCase(req.body())) {
+			if (model.getName().equalsIgnoreCase(id)) {
 				return model;
 			}
 		}
@@ -42,7 +41,7 @@ public class PluginService implements Service<PluginModel> {
 	 * TODO - Change route to default plugin page
 	 */
 	@Override
-	public List<PluginModel> save(Request req, Gson gson) {
+	public List<PluginModel> save(String request, Gson gson) {
 		return null;
 	}
 

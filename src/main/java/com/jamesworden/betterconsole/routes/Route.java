@@ -2,10 +2,6 @@ package com.jamesworden.betterconsole.routes;
 
 import com.google.gson.Gson;
 import com.jamesworden.betterconsole.service.Service;
-import spark.ModelAndView;
-import spark.template.velocity.VelocityTemplateEngine;
-
-import static spark.Spark.*;
 
 /**
  * Generic HTTP Request Route. Handles GET and POST methods only.
@@ -28,24 +24,24 @@ public class Route {
 	 */
 	public void Configure(Gson gson) {
 
-		// Basic example path: '/plugins'
-		path(path, () -> {
-			get("", (req, res) -> new VelocityTemplateEngine().render(
-					// Path: 'plugins'
-					new ModelAndView(service.findAll(),path.substring(1) + "")
-			));
-
-			get("/:id", (req, res) -> new VelocityTemplateEngine().render(
-					// Path: 'plugin'
-					new ModelAndView(service.findById(req), path.substring(1, path.length()-1))
-			));
-
-			post("", (req, res) -> new VelocityTemplateEngine().render(
-					// Path: 'plugins-post'
-					new ModelAndView(service.save(req, gson),path.substring(1) + "-post")
-			));
-
-		});
+//		// Basic example path: '/plugins'
+//		path(path, () -> {
+//			get("", (req, res) -> new VelocityTemplateEngine().render(
+//					// Path: 'plugins'
+//					new ModelAndView(service.findAll(),path.substring(1) + "")
+//			));
+//
+//			get("/:id", (req, res) -> new VelocityTemplateEngine().render(
+//					// Path: 'plugin'
+//					new ModelAndView(service.findById(req), path.substring(1, path.length()-1))
+//			));
+//
+//			post("", (req, res) -> new VelocityTemplateEngine().render(
+//					// Path: 'plugins-post'
+//					new ModelAndView(service.save(req, gson),path.substring(1) + "-post")
+//			));
+//
+//		});
 
 	}
 
