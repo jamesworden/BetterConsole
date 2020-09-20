@@ -1,7 +1,7 @@
 package com.jamesworden.betterconsole.service;
 
 import com.google.gson.Gson;
-import com.jamesworden.betterconsole.models.PlayerModel;
+import com.jamesworden.betterconsole.domain.PlayerModel;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

@@ -1,4 +1,4 @@
-package com.jamesworden.betterconsole.models;
+package com.jamesworden.betterconsole.domain;
 
 import org.inferred.freebuilder.FreeBuilder;
 

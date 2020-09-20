@@ -1,7 +1,7 @@
 package com.jamesworden.betterconsole.service;
 
 import com.google.gson.Gson;
-import com.jamesworden.betterconsole.models.PluginModel;
+import com.jamesworden.betterconsole.domain.PluginModel;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
@@ -13,7 +13,7 @@ public class PluginService implements Service<PluginModel> {
 	/**
 	 * Returns all plugins and ignored plugins on the minecraft server
 	 *
-	 * @return all active and ignored plugin models
+	 * @return all active and ignored plugin domain
 	 */
 	@Override
 	public List<PluginModel> findAll() {
@@ -48,7 +48,7 @@ public class PluginService implements Service<PluginModel> {
 	/**
 	 * Gets plugin data from minecraft server
 	 *
-	 * @return Hash map of plugin names and models, respectively
+	 * @return Hash map of plugin names and domain, respectively
 	 */
 	private List<PluginModel> getCurrentPluginModels() {
 		List<PluginModel> pluginModels = new ArrayList<>();
