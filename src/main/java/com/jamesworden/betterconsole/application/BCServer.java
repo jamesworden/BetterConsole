@@ -1,62 +1,44 @@
 package com.jamesworden.betterconsole.application;
 
-import com.jamesworden.betterconsole.minecraft.Configuration;
 import org.bukkit.Bukkit;
+import org.java_websocket.WebSocket;
+import org.java_websocket.handshake.ClientHandshake;
+import org.java_websocket.server.WebSocketServer;
 
+import java.net.InetSocketAddress;
 import java.util.logging.Logger;
 
-import org.glassfish.tyrus.server.Server;
+public class BCServer extends WebSocketServer {
 
-public class BCServer {
+	Logger LOGGER = Bukkit.getLogger();
 
-	private static boolean running = false;
-	private static Server server;
-	private static Logger LOGGER;
-	private static int port;
-
-	/**
-	 * Start the BetterConsole server
-	 */
-	public static void startServer() {
-
-		if (running) {
-			LOGGER.severe("Unable to start server because it is already running!");
-			return;
-		}
-
-		port = Configuration.getInstance().getPort();
-		LOGGER = Bukkit.getLogger();
-		running = false;
-
-		try {
-			server = new Server("localhost", port, "/", null, BCServerEndpoint.class);
-			server.start();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		LOGGER.info("BetterConsole server started on port " + port + "!");
-		running = true;
+	public BCServer(int port) {
+		super(new InetSocketAddress(port));
 	}
 
-	/**
-	 * Stop the BetterConsole server
-	 */
-	public static void stopServer() {
-
-		if (!running) {
-			LOGGER.severe("Unable to stop the server because it is not running!");
-			return;
-		}
-
-		try {
-			server.stop();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		LOGGER.info("BetterConsole server shutting down...");
-		running = false;
+	@Override
+	public void onOpen(WebSocket conn, ClientHandshake handshake) {
+		conn.send("Welcome!");
+		LOGGER.info("Client with address " + conn.getRemoteSocketAddress() + " has connected!");
 	}
 
+	@Override
+	public void onClose(WebSocket conn, int code, String reason, boolean remote) {
+		LOGGER.info("Client with address " + conn.getRemoteSocketAddress() + " has disconnected!");
+	}
+
+	@Override
+	public void onMessage(WebSocket conn, String message) {
+
+	}
+
+	@Override
+	public void onError(WebSocket conn, Exception ex) {
+
+	}
+
+	@Override
+	public void onStart() {
+		LOGGER.info("BetterConsole server started on port " + getPort() + "!");
+	}
 }
