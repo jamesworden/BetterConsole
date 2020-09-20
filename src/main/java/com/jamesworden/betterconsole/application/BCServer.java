@@ -7,9 +7,9 @@ import java.util.logging.Logger;
 
 import org.glassfish.tyrus.server.Server;
 
-public class BCServerContainer {
+public class BCServer {
 
-	private static boolean running;
+	private static boolean running = false;
 	private static Server server;
 	private static Logger LOGGER;
 	private static int port;
@@ -30,6 +30,7 @@ public class BCServerContainer {
 
 		try {
 			server = new Server("localhost", port, "/", null, BCServerEndpoint.class);
+			server.start();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
