@@ -95,6 +95,11 @@
             <artifactId>Java-WebSocket</artifactId>
             <version>1.5.1</version>
         </dependency>
+        <dependency>
+            <groupId>javax.websocket</groupId>
+            <artifactId>javax.websocket-client-api</artifactId>
+            <version>1.1</version>
+        </dependency>
        <!-- Gson and Json -->
         <dependency>
             <groupId>com.google.code.gson</groupId>

@@ -37,6 +37,10 @@ public final class BetterConsole extends JavaPlugin {
 
 }
 
+
+// TODO - Get a websocket connection working
+// TODO - Open an HTML page and use JS to fetch WS data?
+
 // TODO - Do simple html rendering, nothing complex, polish the front end after everything
 // TODO - Delete the home service route, just make a basic get request
 // TODO - Make a server stats route? TPS, CPU used? if possible.
