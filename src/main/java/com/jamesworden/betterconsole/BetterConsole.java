@@ -1,6 +1,6 @@
 package com.jamesworden.betterconsole;
 
-import com.jamesworden.betterconsole.application.BCServerContainer;
+import com.jamesworden.betterconsole.application.Server;
 import com.jamesworden.betterconsole.minecraft.Configuration;
 import com.jamesworden.betterconsole.minecraft.GameCommand;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -14,6 +14,8 @@ import java.util.Objects;
  */
 public final class BetterConsole extends JavaPlugin {
 
+	private static Server server;
+
 	@Override
 	public void onEnable() {
 
@@ -25,14 +27,15 @@ public final class BetterConsole extends JavaPlugin {
 		Objects.requireNonNull(getCommand("betterconsole")).setExecutor(new GameCommand());
 
 		// Start the server
-		BCServerContainer.startServer();
+		server = new Server();
+		server.start();
 	}
 
 	@Override
 	public void onDisable() {
 
 		// Stop the server
-		BCServerContainer.stopServer();
+		server.stop();
 	}
 
 }
