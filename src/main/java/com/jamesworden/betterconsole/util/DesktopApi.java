@@ -55,7 +55,7 @@ public class DesktopApi {
 	 */
 	public static URI getURI(int port) {
 		try {
-			return new URI("http://localhost:" + port);
+			return new URI("http://localhost:" + port + "/betterconsole");
 		} catch (URISyntaxException ignored) {
 			return null;
 		}

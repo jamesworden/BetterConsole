@@ -1,6 +1,5 @@
 package com.jamesworden.betterconsole.application;
 
-import com.jamesworden.betterconsole.minecraft.Configuration;
 import org.bukkit.Bukkit;
 
 import java.io.IOException;
@@ -11,24 +10,24 @@ import java.util.logging.Logger;
 public class Server {
 
 	private ArrayList<Client> connectedClients;
+	private RequestHandler requestHandler;
 	private ServerSocket serverSocket;
 	private final Logger LOGGER;
-	private final int port;
 	private boolean running;
+	private final int port;
 
-	public Server() {
-
-		connectedClients = new ArrayList<>();
-		LOGGER = Bukkit.getLogger();
-		port = Configuration.getInstance().getPort();
-		running = false;
+	public Server(int port) {
+		this.connectedClients = new ArrayList<>();
+		this.requestHandler = new RequestHandler();
+		this.LOGGER = Bukkit.getLogger();
+		this.running = false;
+		this.port = port;
 	}
 
 	/**
 	 * Start the BetterConsole server
 	 */
 	public void start() {
-
 		// Ensure the server is not running
 		if (running) {
 			LOGGER.severe("Unable to start server because it is already running!");
@@ -97,7 +96,6 @@ public class Server {
 					e.printStackTrace();
 				}
 			}
-
 			// Clear all client connections from memory
 			connectedClients.clear();
 
@@ -108,4 +106,6 @@ public class Server {
 	public ArrayList<Client> getConnectedClients() {
 		return connectedClients;
 	}
+
+	public RequestHandler getRequestHandler() { return requestHandler; }
 }

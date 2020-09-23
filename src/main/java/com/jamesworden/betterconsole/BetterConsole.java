@@ -15,33 +15,37 @@ import java.util.Objects;
 public final class BetterConsole extends JavaPlugin {
 
 	private static Server server;
+	private static BetterConsole instance;
+	private static Configuration configuration;
 
 	@Override
 	public void onEnable() {
-
 		// Configuration
 		saveDefaultConfig();
-		Configuration.getInstance().init(getConfig());
+		configuration = new Configuration(getConfig());
 
 		// Register in-game command
 		Objects.requireNonNull(getCommand("betterconsole")).setExecutor(new GameCommand());
 
 		// Start the server
-		server = new Server();
+		server = new Server(configuration.getPort());
 		server.start();
+
+		instance = this;
 	}
 
 	@Override
 	public void onDisable() {
-
 		// Stop the server
 		server.stop();
 	}
 
+	public static BetterConsole getInstance() { return instance; }
+	public Configuration getConfiguration() { return configuration; }
+	public Server getWebServer() { return server; }
 }
 
 
-// TODO - Get a websocket connection working
 // TODO - Open an HTML page and use JS to fetch WS data?
 
 // TODO - Do simple html rendering, nothing complex, polish the front end after everything

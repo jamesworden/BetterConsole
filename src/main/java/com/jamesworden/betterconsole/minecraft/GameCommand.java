@@ -1,5 +1,6 @@
 package com.jamesworden.betterconsole.minecraft;
 
+import com.jamesworden.betterconsole.BetterConsole;
 import com.jamesworden.betterconsole.util.DesktopApi;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
@@ -16,16 +17,16 @@ public class GameCommand implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
 
+		int port = BetterConsole.getInstance().getConfiguration().getPort();
+
 		// Ensure command sender is console
 		if (sender instanceof Player) {
-			int port = Configuration.getInstance().getPort();
 			sender.sendMessage(ChatColor.YELLOW + " BetterConsole enabled on port " + port +" !");
 			
 			return false;
 		}
 
 		// Attempt to open browser
-		int port = Configuration.getInstance().getPort();
 		URI uri = DesktopApi.getURI(port);
 
 		DesktopApi.browse(uri);
