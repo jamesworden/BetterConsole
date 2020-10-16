@@ -11,52 +11,38 @@ import java.util.logging.Logger;
 
 public class RequestHandler {
 
-	private final byte[] INDEX, FILE_NOT_FOUND, METHOD_NOT_SUPPORTED;
-	private final Logger LOGGER;
-
-	public RequestHandler() {
-		INDEX = getBytesFromResourceFile("index.html");
-		FILE_NOT_FOUND = getBytesFromResourceFile("file_not_found.html");
-		METHOD_NOT_SUPPORTED = getBytesFromResourceFile("method_not_supported.html");
-		LOGGER = Bukkit.getLogger();
-	}
-
-	private byte[] getBytesFromResourceFile(String fileName) {
-		try {
-			return IOUtils.toByteArray(Objects.requireNonNull(this
-					.getClass().getClassLoader().getResourceAsStream(fileName)));
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+	private final Logger LOGGER = Bukkit.getLogger();
 
 	/**
 	 * Handles HTTP requests
 	 *
-	 * @param method HTTP request method type
-	 * @param fileName Specified route
+	 * @param method     HTTP request method type
+	 * @param route      Specified route
 	 * @param connection The socket connection that requests this information
-	 * @param outStream The output stream of the socket.
+	 * @param outStream  The output stream of the socket.
 	 */
-	public void handle (String method, String fileName, Socket connection, OutputStream outStream) {
+	public void handle(String method, String route, Socket connection, OutputStream outStream) {
 
+		// Declare HTTP request variables
 		BufferedOutputStream dataOut = new BufferedOutputStream(outStream);
 		PrintWriter out = new PrintWriter(outStream);
-		InputStream fileInputStream;
+		byte[] fileData = getBytes(route);
 		String statusMessage;
 		int statusCode;
-		byte[] fileData;
 
+		// Ensure that GET requests are the only ones allowed
 		if (method.equals("GET")) {
-			fileData = getBytesFromFileName(fileName);
 			statusMessage = "OK!";
 			statusCode = 200;
-		} else {
-			fileData = METHOD_NOT_SUPPORTED;
+		}  else {
 			statusMessage = "Not Implemented";
 			statusCode = 501;
+		}
+
+		// Ensure that file bytes were returned
+		if (fileData == null) {
+			LOGGER.warning("There's been an error getting bytes from files!");
+			return;
 		}
 
 		int fileLength = fileData.length;
@@ -80,53 +66,37 @@ public class RequestHandler {
 	}
 
 	/**
-	 * Returns the array of bytes that compose a given file's input stream
+	 * Get bytes of appropriate file from specified route name
 	 *
-	 * @param fileInputStream Input stream of file
-	 * @param fileLength Length of the specified input stream
-	 * @return Array of bytes from specified input stream
+	 * @param routeName name of route
+	 * @return byte array composing the file related to the route name
+	 * @apiNote To get the byte array the specified file must be in the 'resources' folder.
 	 */
-	private byte[] getFileData(InputStream fileInputStream, int fileLength) {
+	private byte[] getBytes(String routeName) {
 
-		// Define array
-		byte[] fileData = new byte[fileLength];
+		String fileName;
 
-		// Try to read stream to data array
+		// Determine what file to be returned from route
+		if (routeName.equalsIgnoreCase("/betterconsole")) {
+			fileName = "index.html";
+		} else {
+			fileName = "file_not_found.html";
+		}
+
+		// Return the array of bytes from the correct file
 		try {
-			fileInputStream.read(fileData);
+			return IOUtils.toByteArray(Objects.requireNonNull(this
+					.getClass()
+					.getClassLoader()
+					.getResourceAsStream(fileName)));
 
 		} catch (Exception e) {
-			LOGGER.severe("Error trying to read file data: ");
+			LOGGER.warning("There's been an error getting file data from file with name: " + fileName + "!");
 			e.printStackTrace();
-		} finally {
-			if (fileInputStream != null) {
-				try {
-					fileInputStream.close();
-				} catch (IOException e) {
-					LOGGER.severe("Error while closing stream: ");
-					e.printStackTrace();
-				}
-			}
 		}
-		return fileData;
-	}
 
-	/**
-	 * Returns the corresponding file from the file name input
-	 *
-	 * Currently, the single meaningful file to be returned is 'index.html'
-	 * It will be returned through 'localhost:port/betterconsole'
-	 *
-	 * @param fileName name of file input stream to be returned
-	 * @return input stream from specified file name, null if name not found
-	 */
-	private byte[] getBytesFromFileName(String fileName) {
-
-		if (fileName.equals("/betterconsole")) {
-			return INDEX;
-		} else {
-			return FILE_NOT_FOUND;
-		}
+		// Return null if unable to get bytes
+		return null;
 	}
 
 }

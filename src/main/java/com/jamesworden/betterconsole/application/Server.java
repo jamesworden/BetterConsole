@@ -87,6 +87,7 @@ public class Server {
 					// Wait for a client to connect
 					System.out.println("Server Awaiting Client Connection...");
 					Client client = new Client(serverSocket.accept());
+					LOGGER.info("Client connected!");
 
 					// Client connected
 					connectedClients.add(client);

@@ -23,7 +23,7 @@ public class PluginService implements Service<PluginModel> {
 	/**
 	 * Returns an active or ignored plugin model from plugin on the server
 	 *
-	 * @param req request that contains the name of the plugin to be returned
+	 * @param id request that contains the name of the plugin to be returned
 	 * @return respective plugin model
 	 */
 	@Override
